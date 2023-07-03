@@ -106,10 +106,21 @@ def work(numbers):
 @app.route('/receive_numbers', methods=['POST'])
 def receive_json():
     try:
-        data = request.get_json()
-        print((data))
+        # Check if a JSON file is provided as a command line argument
+        if len(sys.argv) > 1:
+            # Read the JSON file from command line argument
+            json_file = sys.argv[1]
+            
+            # Load JSON data from the file
+            with open(json_file, 'r') as file:
+                data = json.load(file)
+        else:
+            # No JSON file provided, use request.get_json()
+            data = request.get_json()
+        
+        # Rest of your code processing the JSON data goes here
+
         message = data.get('input')
-        print(type(message))
         result = work(message)
         #with open('input.json') as f:
         #    data = json.load(f)
@@ -123,4 +134,12 @@ def receive_json():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    app.run()
+    if len(sys.argv) > 1:
+        # If a JSON file is provided, process it and exit
+        json_file = sys.argv[1]
+        with app.app_context():
+            with app.test_request_context('/receive_numbers', method='POST', data=json.dumps({'filename': json_file}), content_type='application/json'):
+                result = app.full_dispatch_request()
+    else:
+        # Run the Flask app normally
+        app.run()
