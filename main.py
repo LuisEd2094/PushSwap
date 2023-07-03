@@ -62,11 +62,7 @@ def randomGen(n):
     
     return newList
          
-def work(numbers):
-    values= []
-    maxScore = 0
-    maxList = list()
-    failedSorts = list()
+def process_numbers(numbers):
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
@@ -77,7 +73,6 @@ def work(numbers):
     elif len(stack_a) == 5:
         stack_a = size5.solve_for_5(stack_a, movements)
     elif len(stack_a)>= 100:
-        #print(", ".join(['"{}"'.format(str(x)) for x in stack_a]))
         stack_a = for100.solve_for_100(stack_a,movements, space, numDiv)
         print_logic(movements)
         minLen = len(movements)
@@ -113,8 +108,8 @@ def receive_json():
         else:
             data = request.get_json()
     
-        message = data.get('input')
-        result = work(message)
+        numbers = data.get('input')
+        result = process_numbers(numbers)
         return jsonify({'success': True, 'result': result})
     except:
         return jsonify({'success': False, 'error': 'Invalid JSON data'})
@@ -126,5 +121,10 @@ if __name__ == "__main__":
         with app.app_context():
             with app.test_request_context('/receive_numbers', method='POST', data=json.dumps({'filename': json_file}), content_type='application/json'):
                 result = app.full_dispatch_request()
+            json_data = result.get_data(as_text=True)
+            json_object = json.loads(json_data)
+            result_value = json_object.get('result')
+            result_str = ' '.join(str(e) for e in result_value)
+            print(result_str)
     else:
         app.run()
