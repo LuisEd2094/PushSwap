@@ -62,11 +62,7 @@ def randomGen(n):
     
     return newList
          
-def work(numbers):
-    values= []
-    maxScore = 0
-    maxList = list()
-    failedSorts = list()
+def process_numbers(numbers):
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
@@ -77,7 +73,6 @@ def work(numbers):
     elif len(stack_a) == 5:
         stack_a = size5.solve_for_5(stack_a, movements)
     elif len(stack_a)>= 100:
-        #print(", ".join(['"{}"'.format(str(x)) for x in stack_a]))
         stack_a = for100.solve_for_100(stack_a,movements, space, numDiv)
         print_logic(movements)
         minLen = len(movements)
@@ -106,28 +101,15 @@ def work(numbers):
 @app.route('/receive_numbers', methods=['POST'])
 def receive_json():
     try:
-        # Check if a JSON file is provided as a command line argument
         if len(sys.argv) > 1:
-            # Read the JSON file from command line argument
             json_file = sys.argv[1]
-            
-            # Load JSON data from the file
             with open(json_file, 'r') as file:
                 data = json.load(file)
         else:
-            # No JSON file provided, use request.get_json()
             data = request.get_json()
-        
-        # Rest of your code processing the JSON data goes here
-
-        message = data.get('input')
-        result = work(message)
-        #with open('input.json') as f:
-        #    data = json.load(f)
-        
-       # message = data.get('numbers2')
-        
-        #result = main(message)
+    
+        numbers = data.get('input')
+        result = process_numbers(numbers)
         return jsonify({'success': True, 'result': result})
     except:
         return jsonify({'success': False, 'error': 'Invalid JSON data'})
@@ -135,11 +117,14 @@ def receive_json():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     if len(sys.argv) > 1:
-        # If a JSON file is provided, process it and exit
         json_file = sys.argv[1]
         with app.app_context():
             with app.test_request_context('/receive_numbers', method='POST', data=json.dumps({'filename': json_file}), content_type='application/json'):
                 result = app.full_dispatch_request()
+            json_data = result.get_data(as_text=True)
+            json_object = json.loads(json_data)
+            result_value = json_object.get('result')
+            result_str = ' '.join(str(e) for e in result_value)
+            print(result_str)
     else:
-        # Run the Flask app normally
         app.run()
