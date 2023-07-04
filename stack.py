@@ -1,7 +1,7 @@
 import size3, size5
 
 class Stack:
-    def __init__(self, numbers=None):
+    def __init__(self, moves, numbers=None):
         if numbers is None:
             self.stack = []
         else:
@@ -10,6 +10,8 @@ class Stack:
             self.stack = self.get_index(numbers)
         self.solve_3 = self.solve_for_3
         self.solve_5 = self.solve_for_5
+        self.moves = moves.moves
+        self.moves.append("Hola")
     
     def solve_for_3(self, movements):
         size3.solve_for_3(self.stack, movements)

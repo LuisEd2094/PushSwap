@@ -62,9 +62,15 @@ def randomGen(n):
     newList = random.sample(range(n), n)
     
     return newList
+
+class Moves:
+    def __init__(self):
+        self.moves = list()
          
 def process_numbers(numbers):
-    stacka = Stack(numbers)
+    moves = Moves()
+    stacka = Stack(moves,numbers  )
+    print(stacka.moves)
     movements = list()
     print(stacka.stack)
 
