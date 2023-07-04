@@ -1,5 +1,6 @@
-import size3, size5, morethan_5, sys, for100, random 
+import size3, size5, morethan_5, sys, for100, random
 from flask import Flask, request, jsonify
+from stack import Stack
 import json
 import logging
 
@@ -63,6 +64,8 @@ def randomGen(n):
     return newList
          
 def process_numbers(numbers):
+    stacka = Stack(numbers)
+    print(stacka.numbers)
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
@@ -125,6 +128,6 @@ if __name__ == "__main__":
             json_object = json.loads(json_data)
             result_value = json_object.get('result')
             result_str = ' '.join(str(e) for e in result_value)
-            print(result_str)
+            #print(result_str)
     else:
         app.run()
