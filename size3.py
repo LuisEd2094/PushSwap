@@ -13,4 +13,4 @@ def solve_for_3(stack, movements):
             aux.moves_logic(stack, ["sa", "ra"],movements)
         else:
             aux.moves_logic(stack, ["rra"],movements)
-    return (stack)
+    return(stack)

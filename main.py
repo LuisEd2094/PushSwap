@@ -66,14 +66,16 @@ def randomGen(n):
 def process_numbers(numbers):
     stacka = Stack(numbers)
     movements = list()
-    print(stacka.numbers)
-    print (stacka.solve_3(stacka.numbers, movements))
+    print(stacka.stack)
+    print (stacka.solve_3(movements))
+    print(stacka.stack)
     print(movements)
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
     copy_a = stack_a.copy()
     movements = list()
+ 
     if len(stack_a) == 3:
         stack_a = size3.solve_for_3(stack_a, movements)
     elif len(stack_a) == 5:
@@ -99,6 +101,7 @@ def process_numbers(numbers):
     else:
         stack_a = morethan_5.more_than5(stack_a, movements)
     if len(stack_a) < 100:
+        print(movements)
         return (movements)
     else:
         return (minMovements)

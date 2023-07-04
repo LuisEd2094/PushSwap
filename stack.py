@@ -1,4 +1,4 @@
-import aux
+import size3
 
 class Stack:
     def __init__(self, numbers=None):
@@ -25,7 +25,8 @@ class Stack:
         return (index_a)
     
     def solve_for_3(self, movements):
-        while (aux.is_not_ordered(self.stack)):
+        size3.solve_for_3(self.stack, movements)
+        """        while (aux.is_not_ordered(self.stack)):
             if (self.stack[0] > self.stack[1]) and (self.stack[1] < self.stack[2]) and (self.stack[2] > self.stack[0]):
                 aux.moves_logic(self.stack, ["sa"], movements)
             elif (self.stack[0] > self.stack[1]) and (self.stack[1] > self.stack[2]) and (self.stack[2] < self.stack[0]):
@@ -35,7 +36,7 @@ class Stack:
             elif (self.stack[0] < self.stack[1] and self.stack[1] > self.stack[2] and self.stack[2] > self.stack[0]):
                 aux.moves_logic(self.stack, ["sa", "ra"],movements)
             else:
-                aux.moves_logic(self.stack, ["rra"],movements)
-        return (self.stack)
+                aux.moves_logic(self.stack, ["rra"],movements)"""
+
         
     
