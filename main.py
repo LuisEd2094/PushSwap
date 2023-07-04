@@ -65,7 +65,7 @@ def randomGen(n):
          
 def process_numbers(numbers):
     stacka = Stack(numbers)
-    print(stacka.numbers)
+    print(stacka.numbers[0])
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
