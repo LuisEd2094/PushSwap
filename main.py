@@ -67,7 +67,8 @@ def process_numbers(numbers):
     stacka = Stack(numbers)
     movements = list()
     print(stacka.stack)
-    print (stacka.solve_3(movements))
+
+    print (stacka.solve_5(movements))
     print(stacka.stack)
     print(movements)
     space = 0
