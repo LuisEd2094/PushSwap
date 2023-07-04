@@ -65,7 +65,10 @@ def randomGen(n):
          
 def process_numbers(numbers):
     stacka = Stack(numbers)
-    print(stacka.numbers[0])
+    movements = list()
+    print(stacka.numbers)
+    print (stacka.solve_3(stacka.numbers, movements))
+    print(movements)
     space = 0
     numDiv = 2
     stack_a = get_stack_a(numbers)
@@ -128,6 +131,6 @@ if __name__ == "__main__":
             json_object = json.loads(json_data)
             result_value = json_object.get('result')
             result_str = ' '.join(str(e) for e in result_value)
-            #print(result_str)
+            print(result_str)
     else:
         app.run()
